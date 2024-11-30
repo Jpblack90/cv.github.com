@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Editable</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaeff3;
+            color: #333;
+        }
+        .cv-container {
+            display: flex;
+            max-width: 1000px;
+            margin: 30px auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .sidebar {
+            background-color: #173A55;
+            color: white;
+            padding: 30px;
+            width: 35%;
+        }
+        .sidebar h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .sidebar p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .sidebar .personal-info,
+        .sidebar .links,
+        .sidebar .skills {
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .sidebar h2 {
+            font-size: 16px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .content {
+            background-color: #fff;
+            padding: 30px;
+            width: 65%;
+        }
+        .content h2 {
+            font-size: 20px;
+            color: #173A55;
+            border-bottom: 2px solid #173A55;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .content .section {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .editable {
+            border: 1px dashed transparent;
+            padding: 5px;
+            cursor: text;
+        }
+        .editable:focus {
+            outline: none;
+            border-color: #173A55;
+            background-color: #6e6363;
+        }
+        img.profile {
+            display: block;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 3px solid #fff;
+        }
+        .sidebar .personal-info p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .content .editable strong {
+            font-size: 16px;
+            color: #173A55;
+        }
+        .upload-btn-wrapper {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .upload-btn-wrapper input {
+            display: none;
+        }
+        .upload-btn-wrapper label {
+            display: inline-block;
+        }
+        .upload-btn-wrapper button {
+            background-color: #145A8D;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .upload-btn-wrapper button:hover {
+            background-color: #0E6AAE;
+        }
+        .send-cv {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .send-cv button {
+    background-color: #173A55;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.send-cv button:hover {
+    background-color: #52a8e6;
+}
+        .success-message {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+        @media print {
+    .send-cv button {
+        display: none; /* Oculta los botones durante la impresión */
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <!-- Barra lateral -->
+        <div class="sidebar">
+            <h1 contenteditable="true" class="editable">Nombre y Apellido</h1>
+            <p contenteditable="true" class="editable">Posición o título profesional</p>
+
+            <div class="profile-upload-container">
+                <div class="profile-img-wrapper">
+                    <!-- Imagen de perfil, que se puede hacer clic para abrir el input de archivo -->
+                    <img src="https://via.placeholder.com/120" alt="Foto de perfil" class="profile" id="profile-img" onclick="document.getElementById('profile-upload').click();">
+                    <!-- Input de archivo para seleccionar una nueva imagen -->
+                    <input type="file" id="profile-upload" accept="image/*" style="display: none;" onchange="updateProfilePhoto(event)">
+                </div>
+            </div>
+
+            <div class="personal-info">
+                <p contenteditable="true" class="editable">Fecha de nacimiento: DD/MM/AAAA</p>
+                <p contenteditable="true" class="editable">Teléfono: +000-000-0000</p>
+                <p contenteditable="true" class="editable">Correo: ejemplo@correo.com</p>
+                <p contenteditable="true" class="editable">Dirección: Calle, Ciudad, País</p>
+            </div>
+
+            <div class="links">
+                <h2>Enlaces</h2>
+                <ul>
+                    <li contenteditable="true" class="editable">/perfil-enlace-1</li>
+                    <li contenteditable="true" class="editable">/perfil-enlace-2</li>
+                    <li contenteditable="true" class="editable">/perfil-enlace-3</li>
+                </ul>
+            </div>
+
+            <div class="skills">
+                <h2>Habilidades</h2>
+                <ul>
+                    <li contenteditable="true" class="editable">Habilidad 1</li>
+                    <li contenteditable="true" class="editable">Habilidad 2</li>
+                    <li contenteditable="true" class="editable">Habilidad 3</li>
+                    <li contenteditable="true" class="editable">Habilidad 4</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="content">
+            <div class="section">
+                <h2>Experiencia Laboral</h2>
+                <div contenteditable="true" class="editable">
+                    <strong>Empresa</strong> - Puesto<br>
+                    Fecha de inicio - Fecha de fin<br>
+                    <ul>
+                        <li>Responsabilidad o logro 1</li>
+                        <li>Responsabilidad o logro 2</li>
+                        <li>Responsabilidad o logro 3</li>
+                    </ul>
+                </div>
+
+                <div contenteditable="true" class="editable">
+                    <strong>Empresa</strong> - Puesto<br>
+                    Fecha de inicio - Fecha de fin<br>
+                    <ul>
+                        <li>Responsabilidad o logro 1</li>
+                        <li>Responsabilidad o logro 2</li>
+                        <li>Responsabilidad o logro 3</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Educación</h2>
+                <div contenteditable="true" class="editable">
+                    <strong>Institución Educativa</strong> - Título<br>
+                    Fecha de inicio - Fecha de fin<br>
+                    Grado o promedio: X.X<br>
+                </div>
+
+                <div contenteditable="true" class="editable">
+                    <strong>Institución Educativa</strong> - Título<br>
+                    Fecha de inicio - Fecha de fin<br>
+                </div>
+            </div>
+
+            <div class="send-cv">
+                <button onclick="enviarCV()">Enviar CV</button>
+                <button onclick="imprimirCV()">Imprimir</button> <!-- Nuevo botón Imprimir -->
+                <p id="success-message" class="success-message" style="display: none;">¡CV enviado con éxito!</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // Cambiar la foto de perfil
+        function updateProfilePhoto(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-img').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+        // Mostrar mensaje de éxito al enviar el CV
+        function enviarCV() {
+            document.getElementById('success-message').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('success-message').style.display = 'none';
+            }, 3000);
+        }
+        function imprimirCV() {
+        window.print(); // Abre el cuadro de diálogo de impresión
+    }
+    </script>
+</body>
+</html>
